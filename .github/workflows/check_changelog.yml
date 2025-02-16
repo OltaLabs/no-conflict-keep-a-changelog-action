@@ -1,0 +1,26 @@
+name: Check Changelog
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [ opened, synchronize, reopened, labeled, unlabeled ]
+
+jobs:
+  check_changelog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check for a file with the PR number in a sub-directory of the .changes directory
+        run: |
+          pr_number_file=$(echo $GITHUB_REF | cut -d'/' -f3).md
+          if [[ $(find .changes/ -type f -name $pr_number_file -print -quit) ]]; then
+            echo "File $pr_number_file exists."
+          else
+            echo "File $pr_number_file does not exist."
+          fi
