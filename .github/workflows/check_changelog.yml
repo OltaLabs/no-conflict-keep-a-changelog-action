@@ -23,4 +23,5 @@ jobs:
             echo "File $pr_number_file exists."
           else
             echo "File $pr_number_file does not exist."
+            exit 1
           fi
