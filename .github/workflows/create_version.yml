@@ -59,7 +59,7 @@ jobs:
             echo EOF
           } >> "$GITHUB_OUTPUT"
           # Update the CHANGELOG.md file match "## [Unreleased (see .changes folder)]" and replace it with the new ## [NEW_VERSION]
-          sed -i "s/## \[Unreleased (see .changes folder)\]/## [${{ steps.get_version.outputs.NEW_VERSION }}]\n\n$VERSION_TEXT/" CHANGELOG.md
+          sed -i "s/## \[Unreleased (see .changes folder)\]/## \[${{ steps.get_version.outputs.NEW_VERSION }}\]\n\n$VERSION_TEXT/" CHANGELOG.md
           cat CHANGELOG.md
 
       - name: Update PR description with the version and changes
