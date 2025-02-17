@@ -55,7 +55,7 @@ jobs:
               fi
             fi
           done
-          echo -e "VERSION_TEXT=${VERSION_TEXT}" >> $GITHUB_OUTPUT
+          echo -e "VERSION_TEXT=\"${VERSION_TEXT}\"" >> $GITHUB_OUTPUT
 
       - name: Update PR description with the version and changes
         env:
