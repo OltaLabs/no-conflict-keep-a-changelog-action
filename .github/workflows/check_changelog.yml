@@ -23,10 +23,11 @@ jobs:
           if [[ $(find .changes/ -type f -name $pr_number_file -print -quit) ]]; then
             echo "File $pr_number_file exists."
           else
-          if [ "${{ contains(github.event.pull_request.labels.*.name, 'no changelog') }}" = "true" ]; then
-            echo "No changelog needed."
-            exit 0
-          else
-            echo "File $pr_number_file does not exist."
-            exit 1
+            if [ "${{ contains(github.event.pull_request.labels.*.name, 'no changelog') }}" = "true" ]; then
+              echo "No changelog needed."
+              exit 0
+            else
+              echo "File $pr_number_file does not exist."
+              exit 1
+            fi
           fi
