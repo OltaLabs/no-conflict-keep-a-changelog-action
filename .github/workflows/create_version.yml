@@ -62,3 +62,5 @@ jobs:
               repo: context.repo.repo,
               body: '${{ steps.get_version.outputs.VERSION_TEXT }}'
             })
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
