@@ -60,4 +60,4 @@ jobs:
       - name: Update PR description with the version and changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: "gh pr edit ${{ github.event.pull_request.number }} --body ${{ steps.gather_changes.outputs.VERSION_TEXT }}"
+        run: "gh pr edit ${{ github.event.pull_request.number }} --body \"${{ steps.gather_changes.outputs.VERSION_TEXT }}\""
