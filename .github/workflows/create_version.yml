@@ -56,7 +56,7 @@ jobs:
             fi
           done
           {
-            echo 'JSON_RESPONSE<<EOF'
+            echo 'VERSION_TEXT<<EOF'
             echo -e ${VERSION_TEXT}
             echo EOF
           } >> "$GITHUB_OUTPUT"
