@@ -1,3 +1,3 @@
 # no-conflict-keep-a-changelog-action
 
-Test3
+Test7
