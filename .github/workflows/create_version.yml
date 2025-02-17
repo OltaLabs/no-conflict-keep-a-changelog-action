@@ -58,9 +58,7 @@ jobs:
             echo -e ${VERSION_TEXT}
             echo EOF
           } >> "$GITHUB_OUTPUT"
-          # Update the CHANGELOG.md file match "## [Unreleased (see .changes folder)]" and replace it with the new ## [NEW_VERSION]
-          sed -i "s/## \[Unreleased \(see .changes folder\)\]/$VERSION_TEXT/" CHANGELOG.md
-          cat CHANGELOG.md
+
 
       - name: Update PR description with the version and changes
         env:
@@ -70,6 +68,15 @@ jobs:
           gh pr edit ${{ github.event.pull_request.number }} --body "## Version ${{ steps.get_version.outputs.NEW_VERSION }}
           ${{ steps.gather_changes.outputs.VERSION_TEXT }}"
 
-      # - name: Update the CHANGELOG.md file
-      #   run: |
+      - name: Update the CHANGELOG.md file
+        run: |
+          while IFS= read -r line; do
+            if [[ "$line" == "## [Unreleased (see .changes folder)]" ]]; then
+                echo -e "## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]\n\n"
+                echo -e "${${{ steps.gather_changes.outputs.VERSION_TEXT }}%$}"
+            else
+                printf "%s\n" "$line"
+            fi
+          done < CHANGELOG.md > CHANGELOG.md.tmp && mv CHANGELOG.md.tmp CHANGELOG.md
+          cat CHANGELOG.md
           
