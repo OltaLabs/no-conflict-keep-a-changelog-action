@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
   pull_request:
     types: [ opened, synchronize, reopened, labeled, unlabeled ]
+  push:
+    branches:
+      - master
 
 jobs:
   check_changelog:
@@ -17,6 +20,11 @@ jobs:
 
       - name: Check for a file with the PR number in a sub-directory of the .changes directory" or "no changelog" label.
         run: |
+          # Check if we are on master
+          if [ "$GITHUB_REF" = "refs/heads/master" ]; then
+            echo "On master branch, skipping changelog check."
+            exit 0
+          fi
           pr_number_file=$(echo $GITHUB_REF | cut -d'/' -f3).md
           if [[ $(find .changes/ -type f -name $pr_number_file -print -quit) ]]; then
             echo "File $pr_number_file exists."
