@@ -8,13 +8,47 @@ on:
 jobs:
   create_version:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'pr release') }}
+    if: ${{ github.event.label.name == 'pr release' }}
   
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Create version
+      - name: Get the version number in the PR description
+        id: get_version
         run: |
-          echo "Creating version..."
-          echo "Version created."
+          # Extract the version number from the PR description
+          version=$(echo "${{ github.event.pull_request.body }}" | grep -oP '## Version: \K[0-9]+\.[0-9]+\.[0-9]+')
+          echo "NEW_VERSION=${version}" >> $GITHUB_OUTPUT
+
+      - name: Gather all changes
+        run: |
+
+          echo "## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]"
+
+          # Define the order of sections
+          sections_order=("breaking" "added" "changed" "fixed" "removed")
+
+          # Process each section in the specified order
+          for section in "${sections_order[@]}"; do
+            dir_path=".changes/${section}"
+            if [ -d "$dir_path" ]; then
+              # Collect .md files sorted numerically using version sort
+              files=()
+              while IFS= read -r -d $'\0' file; do
+                files+=("$file")
+              done < <(find "$dir_path" -maxdepth 1 -type f -name '*.md' -print0 | sort -V -z)
+              
+              if [ ${#files[@]} -gt 0 ]; then
+                # Capitalize the first letter of the section name
+                section_name="$(tr '[:lower:]' '[:upper:]' <<< "${section:0:1}")${section:1}"
+                echo "## $section_name"
+                for file in "${files[@]}"; do
+                  filename=$(basename "$file" .md)
+                  content=$(cat "$file")
+                  echo "- [${filename}](${filename}): ${content}"
+                done
+                echo # Add a newline after the section for readability
+              fi
+            fi
+          done
