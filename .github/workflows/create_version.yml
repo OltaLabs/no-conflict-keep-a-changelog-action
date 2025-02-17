@@ -28,7 +28,7 @@ jobs:
         id: gather_changes
         run: |
 
-          VERSION_TEXT="## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]\n"
+          VERSION_TEXT="## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]"
 
           # Define the order of sections
           sections_order=("breaking" "added" "changed" "fixed" "removed")
@@ -46,7 +46,7 @@ jobs:
               if [ ${#files[@]} -gt 0 ]; then
                 # Capitalize the first letter of the section name
                 section_name="$(tr '[:lower:]' '[:upper:]' <<< "${section:0:1}")${section:1}"
-                VERSION_TEXT+="### $section_name"
+                VERSION_TEXT+="\n### $section_name\n"
                 for file in "${files[@]}"; do
                   filename=$(basename "$file" .md)
                   content=$(cat "$file")
@@ -55,7 +55,7 @@ jobs:
               fi
             fi
           done
-          echo "VERSION_TEXT=${VERSION_TEXT}" >> $GITHUB_OUTPUT
+          echo -e "VERSION_TEXT=${VERSION_TEXT}" >> $GITHUB_OUTPUT
 
       - name: Update PR description with the version and changes
         env:
