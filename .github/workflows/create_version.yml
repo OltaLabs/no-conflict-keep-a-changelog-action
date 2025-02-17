@@ -82,3 +82,15 @@ jobs:
           done < CHANGELOG.md > CHANGELOG.md.tmp && mv CHANGELOG.md.tmp CHANGELOG.md
           cat CHANGELOG.md
           
+      - name: Delete all the .md files in the .changes directory
+        run: |
+          find .changes -type f -name '*.md' -delete
+      
+      - name: Commit & push the changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add CHANGELOG.md
+          git add .changes
+          git commit -m "Generate changelog for v.${{ steps.get_version.outputs.NEW_VERSION }}"
+          git push
