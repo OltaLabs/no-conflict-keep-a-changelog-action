@@ -7,6 +7,9 @@ on:
 
 jobs:
   create_version:
+    permissions:
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
     if: ${{ github.event.label.name == 'pr release' }}
 
@@ -22,6 +25,7 @@ jobs:
           echo "NEW_VERSION=${version}" >> $GITHUB_OUTPUT
 
       - name: Gather all changes
+        id: gather_changes
         run: |
 
           VERSION_TEXT="## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]\n"
@@ -56,5 +60,4 @@ jobs:
       - name: Update PR description with the version and changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-         "gh pr edit ${{ github.event.pull_request.number }} --body ${{ steps.get_version.outputs.VERSION_TEXT }}"
+        run: "gh pr edit ${{ github.event.pull_request.number }} --body ${{ steps.gather_changes.outputs.VERSION_TEXT }}"
