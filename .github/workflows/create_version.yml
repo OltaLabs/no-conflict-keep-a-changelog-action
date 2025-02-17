@@ -66,3 +66,9 @@ jobs:
           # Update the PR description with the version and changes
           gh pr edit ${{ github.event.pull_request.number }} --body "## Version ${{ steps.get_version.outputs.NEW_VERSION }}
           ${{ steps.gather_changes.outputs.VERSION_TEXT }}"
+
+      - name: Update the CHANGELOG.md file
+        run: |
+          # Update the CHANGELOG.md file match "## [Unreleased (see .changes folder)]" and replace it with the new ## [NEW_VERSION]
+          sed -i "s/## \[Unreleased (see .changes folder)\]/## [${{ steps.get_version.outputs.NEW_VERSION }}]\n\n${{ steps.gather_changes.outputs.VERSION_TEXT }}/" CHANGELOG.md
+          cat CHANGELOG.md
