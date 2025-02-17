@@ -28,7 +28,7 @@ jobs:
         id: gather_changes
         run: |
 
-          VERSION_TEXT="## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]"
+          VERSION_TEXT="## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]\n"
 
           # Define the order of sections
           sections_order=("breaking" "added" "changed" "fixed" "removed")
@@ -46,11 +46,11 @@ jobs:
               if [ ${#files[@]} -gt 0 ]; then
                 # Capitalize the first letter of the section name
                 section_name="$(tr '[:lower:]' '[:upper:]' <<< "${section:0:1}")${section:1}"
-                VERSION_TEXT+="\n### $section_name\n"
+                VERSION_TEXT+="### $section_name\n"
                 for file in "${files[@]}"; do
                   filename=$(basename "$file" .md)
                   content=$(cat "$file")
-                  VERSION_TEXT+="- [${filename}](https://github.com/OltaLabs/no-conflict-keep-a-changelog-action/pull/${filename}): ${content}"
+                  VERSION_TEXT+="- [${filename}](https://github.com/OltaLabs/no-conflict-keep-a-changelog-action/pull/${filename}): ${content}\n"
                 done
               fi
             fi
