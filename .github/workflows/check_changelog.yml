@@ -2,19 +2,17 @@ name: Check Changelog
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
   pull_request:
     types: [ opened, synchronize, reopened, labeled, unlabeled ]
 
 jobs:
   check_changelog:
     runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'pr release') }}
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
 
       - name: Check for a file with the PR number in a sub-directory of the .changes directory" or "no changelog" label.
