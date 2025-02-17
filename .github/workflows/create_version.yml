@@ -28,8 +28,6 @@ jobs:
         id: gather_changes
         run: |
 
-          VERSION_TEXT="## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]\n"
-
           # Define the order of sections
           sections_order=("breaking" "added" "changed" "fixed" "removed")
 
@@ -64,4 +62,7 @@ jobs:
       - name: Update PR description with the version and changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: "gh pr edit ${{ github.event.pull_request.number }} --body \"${{ steps.gather_changes.outputs.VERSION_TEXT }}\""
+        run: |
+          # Update the PR description with the version and changes
+          gh pr edit ${{ github.event.pull_request.number }} --body \"## ${{ steps.get_version.outputs.NEW_VERSION }}
+          ${{ steps.gather_changes.outputs.VERSION_TEXT }}\""
