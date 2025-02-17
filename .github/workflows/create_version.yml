@@ -44,7 +44,7 @@ jobs:
               if [ ${#files[@]} -gt 0 ]; then
                 # Capitalize the first letter of the section name
                 section_name="$(tr '[:lower:]' '[:upper:]' <<< "${section:0:1}")${section:1}"
-                VERSION_TEXT+="### $section_name\n\n"
+                VERSION_TEXT+="\n### $section_name\n"
                 for file in "${files[@]}"; do
                   filename=$(basename "$file" .md)
                   content=$(cat "$file")
@@ -72,7 +72,7 @@ jobs:
         run: |
           while IFS= read -r line; do
             if [[ "$line" == "## [Unreleased (see .changes folder)]" ]]; then
-                echo -e "## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]\n"
+                echo -e "## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]"
                 VERSION_TEXT="${{ steps.gather_changes.outputs.VERSION_TEXT }}"
                 VERSION_TEXT=${VERSION_TEXT::-1}
                 echo -e "$VERSION_TEXT"
