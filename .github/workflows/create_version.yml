@@ -8,7 +8,7 @@ on:
 jobs:
   create_version:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'pr release' }}
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'pr release') }}
   
     steps:
       - name: Checkout code

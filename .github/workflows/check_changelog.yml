@@ -11,6 +11,7 @@ on:
 jobs:
   check_changelog:
     runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'pr release') }}
 
     steps:
       - name: Checkout code
