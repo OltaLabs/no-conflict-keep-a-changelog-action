@@ -4,7 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased (see .changes folder)]
+## [Version 2.8.3]
+
+### Breaking
+- [2](https://github.com/OltaLabs/no-conflict-keep-a-changelog-action/pull/2): I did a lot of things
+
+### Added
+- [1](https://github.com/OltaLabs/no-conflict-keep-a-changelog-action/pull/1): New changelog .changes folder
+- [3](https://github.com/OltaLabs/no-conflict-keep-a-changelog-action/pull/3): I did even more
 
 ## [Version 1.0.1]
 
@@ -29,4 +36,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Version 0.0.1]
 
 ### Added
-- [106](https://github.com/OltaLabs/no-conflict-keep-a-changelog-action/pull/101): Test 106
