@@ -64,5 +64,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Update the PR description with the version and changes
-          gh pr edit ${{ github.event.pull_request.number }} --body \"## Version ${{ steps.get_version.outputs.NEW_VERSION }}
-          ${{ steps.gather_changes.outputs.VERSION_TEXT }}\"
+          gh pr edit ${{ github.event.pull_request.number }} --body "## Version ${{ steps.get_version.outputs.NEW_VERSION }}
+          ${{ steps.gather_changes.outputs.VERSION_TEXT }}"
