@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
 
       - name: Check for a file with the PR number in a sub-directory of the .changes directory" or "no changelog" label.
