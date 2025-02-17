@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased (see .changes folder)]
 
+
+## [Version 3.0.0]
+
+### Breaking
+- [9](https://github.com/OltaLabs/no-conflict-keep-a-changelog-action/pull/9): Add a big breaking change that reserve the world in README.
+- [10](https://github.com/OltaLabs/no-conflict-keep-a-changelog-action/pull/10): Second big breaking on README.md
+
+### Added
+- [7](https://github.com/OltaLabs/no-conflict-keep-a-changelog-action/pull/7): Change in the readme to be more explicit
+
 ## [Version 2.8.3]
 
 ### Breaking
