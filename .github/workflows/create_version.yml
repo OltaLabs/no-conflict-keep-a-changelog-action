@@ -72,8 +72,10 @@ jobs:
         run: |
           while IFS= read -r line; do
             if [[ "$line" == "## [Unreleased (see .changes folder)]" ]]; then
-                echo -e "## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]\n\n"
-                echo -e "${{ steps.gather_changes.outputs.VERSION_TEXT }}"
+                echo -e "## [Version ${{ steps.get_version.outputs.NEW_VERSION }}]\n"
+                VERSION_TEXT=$(echo -e "${{ steps.gather_changes.outputs.VERSION_TEXT }}")
+                VERSION_TEXT=${VERSION_TEXT::-1}
+                echo -e "$VERSION_TEXT"
             else
                 printf "%s\n" "$line"
             fi
