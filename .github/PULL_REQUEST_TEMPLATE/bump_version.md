@@ -1,3 +1,3 @@
-### Version [X.X.X (example: 2.3.8)]
+## Version [X.X.X (example: 2.3.8)]
 
 [ADD LABEL PR RELEASE AND DO NOT EDIT THE REST CI WILL GENERATE IT]
