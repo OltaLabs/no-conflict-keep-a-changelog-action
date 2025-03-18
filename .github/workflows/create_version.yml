@@ -59,10 +59,9 @@ jobs:
           #Escape backquotes
           VERSION_TEXT=$(echo "$VERSION_TEXT" | sed 's/`/\\`/g')
           echo -e "$VERSION_TEXT"
-          echo -e "Between two prints"
           {
             echo 'VERSION_TEXT<<EOF'
-            echo -e ${VERSION_TEXT}
+            echo -e "${VERSION_TEXT}"
             echo EOF
           } >> "$GITHUB_OUTPUT"
           echo -e "$GITHUB_OUTPUT"
